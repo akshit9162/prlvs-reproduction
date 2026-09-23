@@ -1,0 +1,73 @@
+[18:25:34] waiting for features...
+[18:25:34] features ready: 88M
+[18:25:34] sanity faithful (2 epochs)
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:821.)
+  return float(logI.exp()) if MODE == "faithful" else float(logI)
+saved prlvs_faithful.pt
+[18:25:51] sanity repaired (2 epochs)
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:821.)
+  return float(logI.exp()) if MODE == "faithful" else float(logI)
+saved prlvs_repaired.pt
+[18:26:13] TRAINING faithful (300 epochs)
+mode=faithful; 50 videos; K=10, T=40, E_c=10, lr=1e-05, epochs=300
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:821.)
+  return float(logI.exp()) if MODE == "faithful" else float(logI)
+  epoch  20/300  mean r_v = 0.7693  (184s)
+  epoch  40/300  mean r_v = 0.7710  (613s)
+  epoch  60/300  mean r_v = 0.7709  (874s)
+  epoch  80/300  mean r_v = 0.7713  (1058s)
+  epoch 100/300  mean r_v = 0.7700  (1214s)
+  epoch 120/300  mean r_v = 0.7714  (1470s)
+  epoch 140/300  mean r_v = 0.7711  (1662s)
+  epoch 160/300  mean r_v = 0.7685  (1815s)
+  epoch 180/300  mean r_v = 0.7712  (1971s)
+  epoch 200/300  mean r_v = 0.7697  (2139s)
+  epoch 220/300  mean r_v = 0.7726  (2340s)
+  epoch 240/300  mean r_v = 0.7693  (2507s)
+  epoch 260/300  mean r_v = 0.7693  (2683s)
+  epoch 280/300  mean r_v = 0.7673  (2884s)
+  epoch 300/300  mean r_v = 0.7709  (3147s)
+saved prlvs_faithful.pt
+[19:18:44] EVAL faithful
+
+TVSum, 50 videos, GoogLeNet 1024-d @2fps, K=10
+
+                                        tau      rho     F1 %
+-------------------------------------------------------------
+PRLVS (this reproduction)            -0.008   -0.009     14.7
+random                               -0.004   -0.006     15.0
+human                                 0.312    0.400     25.2
+PRLVS as published (Table 2/3)        0.080    0.131     63.0
+human as published (Table 3)          0.177    0.204        -
+[19:19:33] TRAINING repaired (300 epochs)
+mode=repaired; 50 videos; K=10, T=40, E_c=10, lr=1e-05, epochs=300
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:821.)
+  return float(logI.exp()) if MODE == "faithful" else float(logI)
+  epoch  20/300  mean r_v = 0.6470  (123s)
+  epoch  40/300  mean r_v = 0.6492  (244s)
+  epoch  60/300  mean r_v = 0.6537  (384s)
+  epoch  80/300  mean r_v = 0.6529  (505s)
+  epoch 100/300  mean r_v = 0.6494  (626s)
+  epoch 120/300  mean r_v = 0.6516  (786s)
+  epoch 140/300  mean r_v = 0.6499  (917s)
+  epoch 160/300  mean r_v = 0.6500  (1039s)
+  epoch 180/300  mean r_v = 0.6500  (1191s)
+  epoch 200/300  mean r_v = 0.6484  (1321s)
+  epoch 220/300  mean r_v = 0.6515  (1421s)
+  epoch 240/300  mean r_v = 0.6475  (1528s)
+  epoch 260/300  mean r_v = 0.6519  (1719s)
+  epoch 280/300  mean r_v = 0.6475  (1839s)
+  epoch 300/300  mean r_v = 0.6527  (2029s)
+saved prlvs_repaired.pt
+[19:53:25] EVAL repaired
+
+TVSum, 50 videos, GoogLeNet 1024-d @2fps, K=10
+
+                                        tau      rho     F1 %
+-------------------------------------------------------------
+PRLVS (this reproduction)            -0.004   -0.005     14.9
+random                               -0.004   -0.006     15.0
+human                                 0.312    0.400     25.2
+PRLVS as published (Table 2/3)        0.080    0.131     63.0
+human as published (Table 3)          0.177    0.204        -
+[19:54:34] ALL DONE

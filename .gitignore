@@ -1,0 +1,5 @@
+__pycache__/
+*.pt
+*.npz
+run_all_failed.log
+.DS_Store
