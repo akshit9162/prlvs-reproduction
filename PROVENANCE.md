@@ -40,7 +40,7 @@ as evidence about what the authors plausibly did.
 |---|---|---|
 | Frame sampling rate | 2 fps | Changes N, and so changes Eq.3's mask behaviour and episode length |
 | Discount factor gamma | 0.99 | Eq.8 takes gamma as an input and never gives a value |
-| Max time step T | 80 | Eq.8 references T; no value appears anywhere |
+| Max time step T | 80 in the reference; **40 used here** | Eq.8 references T; no value appears anywhere. The runs in this repo use 40 |
 | Numerical epsilon | 1e-8 | Interacts with Eq.6's ~1e-10 magnitudes |
 | Evaluation segmentation | KTS, RBF kernel | §4.2 defines F-score but not how frames become shots |
 | Evaluation budget | 15% of duration | Benchmark convention, not stated |
@@ -52,7 +52,7 @@ shots for F-score" under **"Missing from paper (important to decide)"**.
 
 | Item | Decision | Alternatives |
 |---|---|---|
-| Order of the 4 move actions | `[-5, -1, +1, +5]` | Any permutation; affects nothing if learned from scratch |
+| Order of the 4 move actions | `[-1, +1, -5, +5]` | Any permutation; affects nothing if learned from scratch |
 | What the LSTM consumes | The K selected features in temporal order | Could be all N frames; paper says only that an LSTM exists |
 | Actor/critic sharing | Separate heads on a shared encoder | Fully separate networks |
 | Eq.15 on termination | Order-breaking move is undone | Could be kept, leaving a terminal state that violates the rule |
@@ -81,7 +81,14 @@ the paper is wrong — reward normalisation is standard and routinely unstated.
 selections are mutually more than 2 frames apart, which is the common case. The paper
 states this is intended: *"the diversity reward works in the case that two frames are
 temporally close."* It is a guard rail against the vertical policy collapsing
-selections together, not a dense training signal.
+selections together, not a dense training signal. The **faithful** variant uses it
+exactly as printed.
+
+The **repaired** variant deliberately departs from this: it reads `g()` as a frame's
+*position in the summary* (1..K) rather than its frame index, which makes the
+diversity term active for adjacent summary slots and gives it a gradient. So the
+repaired variant changes two things (this reading of Eq.3, and Eq.6 in the log
+domain), and neither change moves rank correlation (see `diagnose_eval.py`).
 
 ## 5. Where the reference reproduction departs from the published equations
 

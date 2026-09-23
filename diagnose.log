@@ -1,0 +1,24 @@
+
+R = 30 rollouts (300 picks/video)
+selector               tau   95% CI
+oracle               0.558   [0.532, 0.583]
+uniform             -0.002   [-0.020, 0.017]
+greedy_faithful      0.010   [-0.006, 0.026]
+greedy_repaired     -0.001   [-0.019, 0.018]
+untrained           -0.003   [-0.023, 0.018]
+faithful            -0.014   [-0.038, 0.010]
+repaired             0.008   [-0.010, 0.026]
+  faithful vs untrained: Wilcoxon p = 0.625
+  repaired vs untrained: Wilcoxon p = 0.496
+
+R = 150 rollouts (1500 picks/video)
+selector               tau   95% CI
+oracle               0.729   [0.714, 0.744]
+uniform             -0.012   [-0.034, 0.012]
+greedy_faithful      0.006   [-0.011, 0.022]
+greedy_repaired      0.008   [-0.010, 0.026]
+untrained            0.001   [-0.018, 0.020]
+faithful            -0.006   [-0.025, 0.013]
+repaired             0.019   [0.002, 0.037]
+  faithful vs untrained: Wilcoxon p = 0.438
+  repaired vs untrained: Wilcoxon p = 0.152

@@ -1,5 +1,7 @@
 # PRLVS reproduction: Progressive RL for Video Summarization
 
+**[→ Visual walkthrough and results](https://akshit9162.github.io/prlvs-reproduction/)**
+
 A from-scratch PyTorch reproduction of
 
 > Wang, G., Wu, X., & Yan, J. (2024). *Progressive reinforcement learning for video summarization.*
@@ -23,6 +25,24 @@ Neither variant beats random on rank correlation. That matches the independent r
 
 F1 in `eval_prlvs.py` is a simple top-k overlap, not the KTS-segmented benchmark F1. Do not compare it to the paper's F1.
 
+## Why it fails: the reward, not the optimiser
+
+`diagnose_eval.py` sends several selectors through the *same* frame-scoring pipeline: sample K frames, repeat R times, count, smooth, then compute τ against the mean human score. Each selector has its own random stream. R = 150; brackets are bootstrap 95% CIs over the 50 videos.
+
+| Selector | What it tests | Kendall τ |
+|---|---|---:|
+| Oracle | Samples frames in proportion to human scores: the pipeline's ceiling | **0.729** [0.714, 0.744] |
+| Reward-greedy, faithful | Hill-climbs the paper's reward (Eq. 5) directly, with no RL | 0.006 [−0.011, 0.022] |
+| Reward-greedy, repaired | Same, with the repaired reward | 0.008 [−0.010, 0.026] |
+| PRLVS, faithful | Trained agent | −0.006 [−0.025, 0.013] |
+| PRLVS, repaired | Trained agent | 0.019 [0.002, 0.037] |
+| PRLVS, untrained | Same network at random init | 0.001 [−0.018, 0.020] |
+| Uniform | Random K-frame samples | −0.012 [−0.034, 0.012] |
+
+- **The scoring pipeline isn't the bottleneck.** A selector that knows the human scores reaches τ = 0.73 through it.
+- **The reward doesn't track human importance.** Selections that directly maximise it are no better than random, so even a perfect optimiser of this reward can't beat random on rank correlation.
+- **Training changes nothing measurable.** Trained vs untrained, paired Wilcoxon: p = 0.44 (faithful), 0.15 (repaired).
+
 ## Provenance
 
 The paper cannot be implemented without decisions it leaves unstated. [`PROVENANCE.md`](PROVENANCE.md) records every one of them:
@@ -35,7 +55,7 @@ The paper cannot be implemented without decisions it leaves unstated. [`PROVENAN
 ## Two variants
 
 - **faithful**: the information reward is the literal product of K probabilities (Eq. 6). At K = 10 that product is about 1e-10, so the reward difference in Eq. 7 has about 1e-15 of dynamic range.
-- **repaired**: the same reward computed in the log domain.
+- **repaired**: Eq. 6 computed in the log domain, and Eq. 3's index `g()` read as the frame's position in the summary rather than its frame number. The second change gives the diversity term a gradient. See `PROVENANCE.md` §4.
 
 ## Files
 
@@ -46,6 +66,9 @@ The paper cannot be implemented without decisions it leaves unstated. [`PROVENAN
 | `extract_googlenet.py` | GoogLeNet pool5 features at 2 fps from TVSum videos |
 | `train_prlvs.py` | Two-policy A2C training with alternating actor/critic updates (Alg. 1) |
 | `eval_prlvs.py` | τ / ρ / F1 against every annotator, plus random and leave-one-out human baselines |
+| `diagnose_eval.py` | Oracle, reward-greedy, untrained and uniform selectors through the same scoring, with bootstrap CIs and Wilcoxon tests |
+| `diagnose_eval.json`, `diagnose.log` | Per-video τ for every selector at R = 30 and 150 |
+| `docs/` | GitHub Pages walkthrough |
 | `run_all.sh` | Full pipeline: sanity pass, then train and evaluate both variants |
 | `prlvs_eval_*.json`, `train_hist_*.json`, `run_all.log` | Raw per-video results and training curves |
 
