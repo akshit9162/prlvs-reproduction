@@ -1,0 +1,17 @@
+fold 0: training on 40 videos, 300 epochs, w_imp=0.5
+  fold 0 epoch 20/300  mean r_v' = 0.6272  (63s)
+  fold 0 epoch 40/300  mean r_v' = 0.6347  (127s)
+  fold 0 epoch 60/300  mean r_v' = 0.6297  (190s)
+  fold 0 epoch 80/300  mean r_v' = 0.6288  (259s)
+  fold 0 epoch 100/300  mean r_v' = 0.6325  (331s)
+  fold 0 epoch 120/300  mean r_v' = 0.6349  (407s)
+  fold 0 epoch 140/300  mean r_v' = 0.6358  (510s)
+  fold 0 epoch 160/300  mean r_v' = 0.6369  (594s)
+  fold 0 epoch 180/300  mean r_v' = 0.6377  (702s)
+  fold 0 epoch 200/300  mean r_v' = 0.6314  (783s)
+  fold 0 epoch 220/300  mean r_v' = 0.6308  (865s)
+  fold 0 epoch 240/300  mean r_v' = 0.6268  (946s)
+  fold 0 epoch 260/300  mean r_v' = 0.6310  (1029s)
+  fold 0 epoch 280/300  mean r_v' = 0.6338  (1113s)
+  fold 0 epoch 300/300  mean r_v' = 0.6341  (1198s)
+fold 0: saved prlvs_imp_fold0.pt

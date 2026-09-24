@@ -3,3 +3,9 @@ __pycache__/
 *.npz
 run_all_failed.log
 .DS_Store
+# TVSum annotations are downloaded, not committed (see README)
+tvsum_anno/
+# pre-fix artifacts kept locally for reference
+flawed_fold0/
+# small, and needed to evaluate the importance runs without retraining the regressor
+!importance_cv_pred.npz

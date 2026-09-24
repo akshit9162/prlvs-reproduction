@@ -1,0 +1,17 @@
+fold 4: training on 40 videos, 300 epochs, w_imp=0.5
+  fold 4 epoch 20/300  mean r_v' = 0.6310  (383s)
+  fold 4 epoch 40/300  mean r_v' = 0.6255  (766s)
+  fold 4 epoch 60/300  mean r_v' = 0.6256  (1174s)
+  fold 4 epoch 80/300  mean r_v' = 0.6320  (1603s)
+  fold 4 epoch 100/300  mean r_v' = 0.6320  (2107s)
+  fold 4 epoch 120/300  mean r_v' = 0.6245  (2700s)
+  fold 4 epoch 140/300  mean r_v' = 0.6268  (3402s)
+  fold 4 epoch 160/300  mean r_v' = 0.6287  (4234s)
+  fold 4 epoch 180/300  mean r_v' = 0.6338  (5193s)
+  fold 4 epoch 200/300  mean r_v' = 0.6325  (6141s)
+  fold 4 epoch 220/300  mean r_v' = 0.6300  (6972s)
+  fold 4 epoch 240/300  mean r_v' = 0.6332  (7856s)
+  fold 4 epoch 260/300  mean r_v' = 0.6310  (8673s)
+  fold 4 epoch 280/300  mean r_v' = 0.6255  (9354s)
+  fold 4 epoch 300/300  mean r_v' = 0.6303  (9755s)
+fold 4: saved prlvs_imp_fold4.pt
