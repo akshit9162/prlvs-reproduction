@@ -9,3 +9,5 @@ tvsum_anno/
 flawed_fold0/
 # small, and needed to evaluate the importance runs without retraining the regressor
 !importance_cv_pred.npz
+.impeccable/
+.hallmark/
